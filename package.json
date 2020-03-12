@@ -1,6 +1,6 @@
 {
   "name": "iex",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "IEX Cloud client library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
