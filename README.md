@@ -58,7 +58,7 @@ IEXClient.price(symbol: string, params?: Object): number
 Requests the latest price for `symbol`.<br>
 `params` can be any query parameters the overall API (e.g. *format*) or the enpoint (currently none) supports.<br>
 
-### quote
+#### quote
 ```ts
 IEXClient.quote(symbol: string, params?: Object, field?: string): string | Object
 ```

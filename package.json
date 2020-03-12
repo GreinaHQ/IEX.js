@@ -2,6 +2,7 @@
   "name": "iex",
   "version": "0.1.1",
   "description": "IEX Cloud client library",
+  "keywords": ["finance", "iex", "stocks", "stock-data", "market-data", "financial-data"],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
