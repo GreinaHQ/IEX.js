@@ -1,4 +1,4 @@
-# node-iex
+# IEX.js
 
 A JavaScript client for the IEX Cloud API, usable in both NodeJS and browsers.
 
