@@ -1,28 +1,33 @@
 {
   "name": "iex",
   "version": "0.0.1",
-  "description": "IEX client library",
+  "description": "IEX Cloud client library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:e2e:node": "npm run build && node tests/node"
   },
   "author": "Ronny Haase <ronnyhaase@fastmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^13.9.0",
+    "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
   },
   "directories": {
     "lib": "lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ky": "^0.19.0",
+    "ky-universal": "^0.5.0"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GreinaHQ/node-iex.git"
+    "url": "git+https://github.com/GreinaHQ/IEX.js.git"
   },
   "bugs": {
-    "url": "https://github.com/GreinaHQ/node-iex/issues"
+    "url": "https://github.com/GreinaHQ/IEX.js/issues"
   },
-  "homepage": "https://github.com/GreinaHQ/node-iex#readme"
+  "homepage": "https://github.com/GreinaHQ/IEX.js#readme"
 }
