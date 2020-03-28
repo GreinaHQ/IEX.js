@@ -13,7 +13,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc",
     "test:e2e:node": "npm run build && node tests/node"
   },
   "author": "Ronny Haase <ronnyhaase@fastmail.com>",

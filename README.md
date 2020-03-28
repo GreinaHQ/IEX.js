@@ -1,6 +1,8 @@
 # IEX.js
 
-A JavaScript client for the IEX Cloud API, usable in both NodeJS and browsers.
+> **This library is in early development, so there might be breaking changes**
+
+A universal JavaScript client for the IEX Cloud API, therefor usable in both NodeJS and browsers.
 
 ## Installation
 
@@ -10,22 +12,46 @@ $ npm install iex
 
 ## Usage
 
+### 1. IexClient
+
+Recommended if you use multiple endpoints, multiple times. Exports all
+endpoints, as well as namespaced by category.
+
 ```js
 import createClient from 'iex'
+// or
+const createClient = require('iex')
 
-const { history } = createClient('pk_youriextoken')
+const iex = createClient({ token: 'pk_youriextoken' })
 
-history('AAPL')
+iex.prices.history('AAPL')
+iex.history('AAPL')
+```
+
+### 2. Direct imports
+
+Recommended if you only need one or few endpoints and calls
+
+```js
+import { history } from 'iex/prices'
+
+// For quick single calls, initialise and call:
+history({ token: 'pk_youriextoken' })('aapl')
+
+// For multiple calls, initialise once, call multiple times:
+const fetchHistory = history({ token: 'pk_youriextoken' })
+fetchHistory('aapl')
+fetchHistory('msft')
 ```
 
 ## API
 
 ### createClient
 ```ts
-creatClient(token, env?, version? = 'stable'): IEXClient
+creatClient({ token, env?, version? = 'stable' }): IEXClient
 ```
-Creates a client.<br>
-Determines *env* from the passed's token prefix if not explicitely set, defaults to stable for *version*
+Creates a client with pre-initialized enpoint functions (opposite to single imports requiring initialisation).<br>
+Determines *env* from the passed token prefix if not explicitely set, defaults to stable for *version*
 
 ### IEXClient
 

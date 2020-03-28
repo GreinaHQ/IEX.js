@@ -114,8 +114,8 @@ packages:
     resolution:
       integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 specifiers:
-  '@types/node': ^13.7.7
-  ky: ^0.18.0
+  '@types/node': ^13.9.0
+  ky: ^0.19.0
   ky-universal: ^0.5.0
   ts-node: ^8.6.2
   typescript: ^3.8.3
