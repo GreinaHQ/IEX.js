@@ -1,6 +1,7 @@
 import { validateSettings} from './client'
 import PricesClient from './prices'
 import { IexSettings, IexPricesClient, IexClient } from './types'
+import { Effect } from './utils'
 
 class Client implements IexClient {
   prices: IexPricesClient
@@ -11,7 +12,7 @@ class Client implements IexClient {
   quote: Function
 
   constructor (settings: IexSettings) {
-    validateSettings(settings)
+    Effect(validateSettings).run(settings)
 
     this.prices = PricesClient.create(settings)
     this.history = this.prices.history
