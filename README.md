@@ -12,21 +12,24 @@ $ npm install iex
 
 ## Usage
 
-### 1. IexClient
+### 1. IEXClient
 
 Recommended if you use multiple endpoints, multiple times. Exports all
 endpoints, as well as namespaced by category.
 
 ```js
-import createClient from 'iex'
+import IEXClient from 'iex'
 // or
-const createClient = require('iex')
+const IEXClient = require('iex')
 
-const iex = createClient({ token: 'pk_youriextoken' })
+const iex = IEXClient.create({ token: 'pk_youriextoken' })
 
-iex.prices.history('AAPL')
-iex.history('AAPL')
+await iex.prices.history('AAPL')
+// or
+await iex.history('AAPL')
 ```
+
+**When the API returns JSON it will be parsed, otherwise you'll receive a string.**
 
 ### 2. Direct imports
 
@@ -36,57 +39,60 @@ Recommended if you only need one or few endpoints and calls
 import { history } from 'iex/prices'
 
 // For quick single calls, initialise and call:
-history({ token: 'pk_youriextoken' })('aapl')
+await history({ token: 'pk_youriextoken' })('aapl')
 
 // For multiple calls, initialise once, call multiple times:
 const fetchHistory = history({ token: 'pk_youriextoken' })
-fetchHistory('aapl')
-fetchHistory('msft')
+await fetchHistory('aapl')
+await fetchHistory('msft')
 ```
 
 ## API
 
-### createClient
+### IEXClient
 ```ts
-creatClient({ token, env?, version? = 'stable' }): IEXClient
+class IEXClient({ token, env?, version? = 'stable' })
+IEXClient.create({ token, env?, version? = 'stable' }): IexClient
 ```
 Creates a client with pre-initialized enpoint functions (opposite to single imports requiring initialisation).<br>
 Determines *env* from the passed token prefix if not explicitely set, defaults to stable for *version*
 
-### IEXClient
+### IEXClient instance
 
-#### history
+#### prices
+
+##### history
 ```ts
-IEXClient.history(symbol: string, params?: Object, range?: string): string | Object
+IEXClient.history(symbol: string, params?: Object, range?: string): Promise<string | Object>
 ```
 Requests historical prices for `symbol`.<br>
 `params` can be any query parameters the overall API (e.g. *format*) or the enpoint (e.g. *includeLast*) supports.<br>
 `range` can be a range as specified in the docs
 
-#### intraday
+##### intraday
 ```ts
-IEXClient.intraday(symbol: string, params?: Object): string | Object
+IEXClient.intraday(symbol: string, params?: Object): Promise<string | Object>
 ```
 Requests intraday prices for `symbol`.<br>
 `params` can be any query parameters the overall API (e.g. *format*) or the enpoint (e.g. *chartIEXOnly*) supports.
 
-#### previous
+##### previous
 ```ts
-IEXClient.previous(symbol: string, params?: Object): string | Object
+IEXClient.previous(symbol: string, params?: Object): Promise<string | Object>
 ```
 Requests closing data of the previous trading day for `symbol`.<br>
 `params` can be any query parameters the overall API (e.g. *format*) or the enpoint (currently none) supports.<br>
 
-#### price
+##### price
 ```ts
-IEXClient.price(symbol: string, params?: Object): number
+IEXClient.price(symbol: string, params?: Object): Promise<number>
 ```
 Requests the latest price for `symbol`.<br>
 `params` can be any query parameters the overall API (e.g. *format*) or the enpoint (currently none) supports.<br>
 
-#### quote
+##### quote
 ```ts
-IEXClient.quote(symbol: string, params?: Object, field?: string): string | Object
+IEXClient.quote(symbol: string, params?: Object, field?: string): Promise<string | Object>
 ```
 Requests realtime/delyed quote data (e.g. OHLC, volume, 52 week high, ...) for `symbol`.<br>
 `params` can be any query parameters the overall API (e.g. *format*) or the enpoint (e.g. *displayPercent*) supports.<br>
