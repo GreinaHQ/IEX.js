@@ -1,5 +1,6 @@
+import { validateSettings } from '../client'
 import iexRequest from '../iex-request'
-import { Params, IexRange, IexResponse, IexSettings } from '../types'
+import { Params, IexRange, IexResponse, IexPricesClient, IexSettings } from '../types'
 
 function history (settings: IexSettings) {
   return function requestHistory (symbol: string, params?: Params, range?: IexRange ): IexResponse {
@@ -31,6 +32,30 @@ function quote (settings: IexSettings) {
   }
 }
 
+class PricesClient implements IexPricesClient {
+  history: Function
+  intraday: Function
+  previous: Function
+  price: Function
+  quote: Function
+
+  constructor (settings: IexSettings) {
+    validateSettings(settings)
+
+    this.history = history(settings)
+    this.intraday = intraday(settings)
+    this.previous = previous(settings)
+    this.price = price(settings)
+    this.quote = quote(settings)
+  }
+
+  static create (settings: IexSettings) {
+    return new PricesClient(settings)
+  }
+}
+
+export default PricesClient
+module.exports = PricesClient
 export {
   history,
   intraday,

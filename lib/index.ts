@@ -1,33 +1,31 @@
-import * as _prices from './prices'
+import { validateSettings} from './client'
+import PricesClient from './prices'
 import { IexSettings, IexPricesClient, IexClient } from './types'
 
-function createClient (settings: IexSettings): IexClient {
-  if (typeof settings.token !== 'string' && !(settings.token as any instanceof String)) throw Error('You must pass a token as string')
-  else if (settings.token.startsWith('Tsk_') && !settings.env) settings.env = 'sandbox'
-  else if (settings.token.startsWith('pk_') && !settings.env) settings.env = 'cloud'
-  else throw Error('Invalid token, did you might pass a secret token?')
+class Client implements IexClient {
+  prices: IexPricesClient
+  history: Function
+  intraday: Function
+  previous: Function
+  price: Function
+  quote: Function
 
-  if (!settings.version) settings.version = 'stable'
+  constructor (settings: IexSettings) {
+    validateSettings(settings)
 
-  const initFn = (fn: Function) => fn(settings)
-  const initNs = (ns: Object): any => {
-    let ins: Object = {}
-    ;(Object.keys(ns) as Array<keyof typeof ns>).map((fnn): void => { ins[fnn] = initFn(ns[fnn]) })
-    return ins
+    this.prices = PricesClient.create(settings)
+    this.history = this.prices.history
+    this.intraday = this.prices.intraday
+    this.previous = this.prices.previous
+    this.price = this.prices.price
+    this.quote = this.prices.quote
   }
 
-  const prices: IexPricesClient = initNs(_prices)
-
-  return {
-    prices,
-    history: prices.history,
-    intraday: prices.intraday,
-    previous: prices.previous,
-    price: prices.price,
-    quote: prices.quote,
+  static create (settings: IexSettings) {
+    return new Client(settings)
   }
 }
 
-export default createClient
+export default Client
+module.exports = Client
 export * from './types'
-module.exports = createClient
