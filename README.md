@@ -4,6 +4,8 @@
 
 A universal JavaScript client for the IEX Cloud API, therefor usable in both NodeJS and browsers.
 
+> Also check out [iex-cli](https://github.com/GreinaHQ/iex-cli) to have IEX data straight in your terminal!
+
 ## Installation
 
 ```sh
