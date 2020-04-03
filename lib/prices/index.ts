@@ -1,11 +1,11 @@
 import { validateSettings } from '../client'
 import iexRequest from '../iex-request'
-import { Params, IexRange, IexResponse, IexPricesClient, IexSettings } from '../types'
+import { Params, IexHistoryRange, IexResponse, IexPricesClient, IexSettings } from '../types'
 import { Effect } from '../utils'
 
 function history (settings: IexSettings) {
   Effect(validateSettings).run(settings)
-  return function requestHistory (symbol: string, params?: Params, range?: IexRange ): IexResponse {
+  return function requestHistory (symbol: string, params?: Params, range?: IexHistoryRange ): IexResponse {
     return iexRequest(settings, `/stock/${symbol}/chart${ range ? `/${range}`: ''}`, params)
   }
 }

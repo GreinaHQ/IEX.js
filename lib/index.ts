@@ -1,6 +1,7 @@
 import { validateSettings} from './client'
+import FundamentalsClient from './fundamentals'
 import PricesClient from './prices'
-import { IexSettings, IexPricesClient, IexClient } from './types'
+import { IexSettings, IexPricesClient, IexClient, IexFundamentalsClient } from './types'
 import { Effect } from './utils'
 
 class Client implements IexClient {
@@ -11,6 +12,16 @@ class Client implements IexClient {
   price: Function
   quote: Function
 
+  fundamentals: IexFundamentalsClient
+  balanceSheet: Function
+  cashFlow: Function
+  dividends: Function
+  earnings: Function
+  financials: Function
+  reportedFinancials: Function
+  income: Function
+  splits: Function
+
   constructor (settings: IexSettings) {
     Effect(validateSettings).run(settings)
 
@@ -20,6 +31,16 @@ class Client implements IexClient {
     this.previous = this.prices.previous
     this.price = this.prices.price
     this.quote = this.prices.quote
+
+    this.fundamentals = FundamentalsClient.create(settings)
+    this.balanceSheet = this.fundamentals.balanceSheet
+    this.cashFlow = this.fundamentals.cashFlow
+    this.dividends = this.fundamentals.dividends
+    this.earnings = this.fundamentals.earnings
+    this.financials = this.fundamentals.financials
+    this.reportedFinancials = this.fundamentals.reportedFinancials
+    this.income = this.fundamentals.income
+    this.splits = this.fundamentals.splits
   }
 
   static create (settings: IexSettings) {

@@ -7,40 +7,65 @@ type IexEnv = 'cloud' | 'sandbox'
 const _iexEnvs: IexEnv[] = ['cloud', 'sandbox']
 
 interface IexSettings {
-  token: string,
-  env?: IexEnv,
-  version?: IexVersion,
+  token: string
+  env?: IexEnv
+  version?: IexVersion
 }
 
-type IexRange = string[6] | 'max' | '5y' | '2y' | '1y' | 'ytd' | '6m' | '3m' | '1m' | '1mm' | '5d' | '5dm' | 'dynamic'
+type IexHistoryRange = string[6] | 'max' | '5y' | '2y' | '1y' | 'ytd' | '6m' | '3m' | '1m' | '1mm' | '5d' | '5dm' | 'dynamic'
+type IexCARange = '5y' | '2y' | '1y' | 'ytd' | '6m' | '3m' | '1m' | 'next'
+type IexFiling = '10-K' | '10-Q'
 
 type IexResponse = Promise<string | Object>
 
+interface IexFundamentalsClient {
+  balanceSheet: Function
+  cashFlow: Function
+  dividends: Function
+  earnings: Function
+  financials: Function
+  reportedFinancials: Function
+  income: Function
+  splits: Function
+}
+
 interface IexPricesClient {
-  history: Function,
-  intraday: Function,
-  previous: Function,
-  price: Function,
-  quote: Function,
+  history: Function
+  intraday: Function
+  previous: Function
+  price: Function
+  quote: Function
 }
 
 interface IexClient {
-  prices: IexPricesClient,
+  prices: IexPricesClient
+  history: Function
+  intraday: Function
+  previous: Function
+  price: Function
+  quote: Function
 
-  history: Function,
-  intraday: Function,
-  previous: Function,
-  price: Function,
-  quote: Function,
+  fundamentals: IexFundamentalsClient
+  balanceSheet: Function
+  cashFlow: Function
+  dividends: Function
+  earnings: Function
+  financials: Function
+  reportedFinancials: Function
+  income: Function
+  splits: Function
 }
 
 export {
   _iexEnvs,
   _iexVersions,
   IexClient,
+  IexCARange,
   IexEnv,
+  IexFiling,
+  IexFundamentalsClient,
   IexPricesClient,
-  IexRange,
+  IexHistoryRange,
   IexResponse,
   IexSettings,
   IexVersion,
