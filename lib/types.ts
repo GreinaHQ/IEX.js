@@ -37,6 +37,11 @@ interface IexPricesClient {
   quote: Function
 }
 
+interface IexProfilesClient {
+  company: Function
+  logo: Function
+}
+
 interface IexClient {
   prices: IexPricesClient
   history: Function
@@ -44,6 +49,10 @@ interface IexClient {
   previous: Function
   price: Function
   quote: Function
+
+  profiles: IexProfilesClient
+  company: Function
+  logo: Function
 
   fundamentals: IexFundamentalsClient
   balanceSheet: Function
@@ -65,6 +74,7 @@ export {
   IexFiling,
   IexFundamentalsClient,
   IexPricesClient,
+  IexProfilesClient,
   IexHistoryRange,
   IexResponse,
   IexSettings,
