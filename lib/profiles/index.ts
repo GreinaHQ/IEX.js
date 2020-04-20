@@ -5,14 +5,14 @@ import iexRequest from '../iex-request'
 
 function company (settings: IexSettings) {
   Effect(validateSettings).run(settings)
-  return function companyRequest (symbol: string, params?: Params): IexResponse {
+  return function requestCompany (symbol: string, params?: Params): IexResponse {
     return iexRequest(settings, `/stock/${symbol}/company`, params)
   }
 }
 
 function logo (settings: IexSettings) {
   Effect(validateSettings).run(settings)
-  return function logoRequest (symbol: string, params?: Params): IexResponse {
+  return function requestLogo (symbol: string, params?: Params): IexResponse {
     return iexRequest(settings, `/stock/${symbol}/logo`, params)
   }
 }

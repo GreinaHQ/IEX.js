@@ -43,6 +43,7 @@ const Client = require('../dist')
     // quote
     result = await iex.quote('aapl')
     assert.strictEqual(typeof result, 'object', 'expected result to be object')
+
     result = await iex.quote('aapl', undefined, 'latestPrice')
     assert.strictEqual(typeof result, 'number', 'expected result to be number')
 
@@ -51,7 +52,7 @@ const Client = require('../dist')
     // company
     result = await iex.company('aapl')
     assert.strictEqual(typeof result, 'object', 'expected result to be object')
-    assert.ok(result.CEO, 'expected result to have property url')
+    assert.ok(result.CEO, 'expected result to have property CEO')
 
     // logo
     result = await iex.logo('aapl')
@@ -95,6 +96,7 @@ const Client = require('../dist')
     // reported financials
     result = await iex.reportedFinancials('aapl')
     assert.strictEqual(Array.isArray(result), true, 'expected result to be array')
+
     result = await iex.reportedFinancials('aapl', { last: 1 }, '10-K')
     assert.strictEqual(result.length, 1, 'expected result to have one item')
     // assert.strictEqual(result[0].subkey, '10-K', 'expected result item to be 10-K filing')

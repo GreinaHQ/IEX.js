@@ -12,14 +12,14 @@ import { Effect } from '../utils'
 
 function balanceSheet (settings: IexSettings) {
   Effect(validateSettings).run(settings)
-  return function balanceSheetRequest (symbol: string, params?: Params): IexResponse {
+  return function requestBalanceSheet (symbol: string, params?: Params): IexResponse {
     return iexRequest(settings, `/stock/${symbol}/balance-sheet`, params)
   }
 }
 
 function cashFlow (settings: IexSettings) {
   Effect(validateSettings).run(settings)
-  return function cashFlowRequest (symbol: string, params?: Params): IexResponse {
+  return function requestCashFlow (symbol: string, params?: Params): IexResponse {
     return iexRequest(settings, `/stock/${symbol}/cash-flow`, params)
   }
 }
@@ -40,7 +40,7 @@ function earnings (settings: IexSettings) {
 
 function financials (settings: IexSettings) {
   Effect(validateSettings).run(settings)
-  return function financialsRequest (symbol: string, params?: Params): IexResponse {
+  return function requestFinancials (symbol: string, params?: Params): IexResponse {
     return iexRequest(settings, `/stock/${symbol}/financials`, params)
   }
 }
@@ -54,7 +54,7 @@ function reportedFinancials (settings: IexSettings) {
 
 function income (settings: IexSettings) {
   Effect(validateSettings).run(settings)
-  return function financialsRequest (symbol: string, params?: Params): IexResponse {
+  return function requestIncome (symbol: string, params?: Params): IexResponse {
     return iexRequest(settings, `/stock/${symbol}/income`, params)
   }
 }
